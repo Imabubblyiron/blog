@@ -1,1 +1,104 @@
+# '리액티브 프로그래밍' 그리고 'RxJava'
 
+모바일 개발을 진행하면서 리액티브 프로그래밍에 대해 처음으로 접하게 되었고 필요성을 느끼게 되어 정리해보고자 한다.
+
+ 1) 리액티브 프로그래밍
+
+ 리액티브 프로그래밍이란 데이터 흐름을 통지하고 통지된 데이터를 처리하는 것에 중점을 둔 프로그래밍 패러다임이다. 
+ 여기서 말하는 데이터 흐름은 다시 말해 데이터 스트림이라고 한다.
+ 예를 들어, 우리가 사용하는 스마트폰 속에서 어떤 어플리케이션의 버튼을 몇번이고 누른다고 생각해보자. 그 버튼을 누르면 그것에 대한 결과로 순차적으로 반응하게 된다. 
+ 반응들은 순서대로 데이터가 통지되고 순서대로 처리가 되어진 것이다. 추가적으로, 데이터 스트림은 앞으로도 발생할 수 있는 데이터들까지 포함한다. 아직 버튼이 눌리지 
+ 않았지만 눌릴 가능성이 있기 때문이다.
+ 리액티브 프로그래밍 특징으로는 생산자는 데이터를 생산해서 전달하는 것까지 책임을 가지고있고, 소비자는 데이터를 소비하는 측에서는 데이터가 언제 전달되는지 알 필요가 
+ 없고,단지 처리만 해주면 된다. 이것들은 비동기 처리를 쉽게 할 수 있다는 의미이다.
+
+ 2) 리액티브의 사용
+ 
+ 그런데 왜 우리는 리액티브를 사용하는지에 대해 궁금해질 것이다.
+ 우리가 일반적으로 사용하는 전자기기 중 스마트폰을 생각해보자. 하루에도 몇번씩 여러가지의 어플리케이션들을 사용하며 끊임없이 데이터들을 저장하고, 전달하고, 삭제하고 
+ 있다.이런식으로 데이터의 양이 시간이 지날수록 더 방지해지고 있기 때문에 그것에 대한 해결책으로 리액티브라는 개념이 요구되고 있는 것이다. 
+ 왜냐하면 우리가 직접 이러한 동작들을 24시간 내내 관찰할 수 없다. 이 문제들을 해결하기위해 '리액티브'라는 개념이 해결책으로 제시되고 있고, 
+ '리액티브 프로그래밍'을 통해서 언제 발생될지 모르는 데이터들로부터 대응할 수 있게 되었다고 말할 수 있다. 
+
+ 3) RxJava
+    
+ 리액티브 프로그래밍 패러다임을 자바에서 구현한 라이브러리가 RxJava이다. 현재는 RxJava 3.x 버전까지 나와있지만 1.x 버전과 2.x 버전에 큰 차이를 두고 있다. 
+ 바로 배압사양에 따라 사용하는 API가 변경되어서 2.x 버전은 내부 구현을 다시 설계했다고 한다. 그리고 2.x버전 부터는 Reactive Streams를 지원하고 있다. 
+ 특징으로는 Rxjava는 디자인 패턴인 옵저버 패턴을 잘 적용하여 확장하였다. 또한 스레드를 직접 관리하는 어려움으로부터 벗어날 수 있게 간단하게 구현을 할 수 있고,
+ 동기 뿐만 아니라 비동기 처리도 쉽게 할 수 있다. 그리고 RxJava는 함수형 프로그래밍의 영향을 받았다고 한다. 그래서 함수형 인터페이스를 인자로 받아 메서드를 이용한 
+ 다.
+
+ 4) Reactive Streams
+ 
+ 위의 RxJava 내용중 Reactive Streams에 대한 언급이 있다. Reactive Streams는 Publisher(생산자)라고 해서 데이터를 만들어 통지하는 것과, 데이터를 받아
+ 처리하는 Subscriber(소비자)로 구성되어 있다. Subscriber가 Publisher를 구독하면 통지되었던 데이터를 받을 수 있게 된다.
+ 다음의 코드는 Reactive Streams에 선언된 인터페이스들 이다.
+
+ - Publisher //데이터를 통지하는 생산자
+
+ ```
+ public interface Publisher<T> {
+    /**
+     * Request {@link Publisher} to start streaming data.
+     * <p>
+     * This is a "factory method" and can be called multiple times, each time starting a new {@link Subscription}.
+     * <p>
+     * Each {@link Subscription} will work for only a single {@link Subscriber}.
+     * <p>
+     * A {@link Subscriber} should only subscribe once to a single {@link Publisher}.
+     * <p>
+     * If the {@link Publisher} rejects the subscription attempt or otherwise fails it will
+     * signal the error via {@link Subscriber#onError}.
+     *
+     * @param s the {@link Subscriber} that will consume signals from this {@link Publisher}
+     */
+    public void subscribe(Subscriber<? super T> s);
+ }
+
+ ```
+
+ - Subscriber // 데이터를 받아 처리하는 소비자
+
+ ```
+ public interface Subscriber<T> {
+    /**
+     * Invoked after calling {@link Publisher#subscribe(Subscriber)}.
+     * <p>
+     * No data will start flowing until {@link Subscription#request(long)} is invoked.
+     * <p>
+     * It is the responsibility of this {@link Subscriber} instance to call {@link Subscription#request(long)} whenever more        data is wanted.
+     * <p>
+     * The {@link Publisher} will send notifications only in response to {@link Subscription#request(long)}.
+     * 
+     * @param s
+     *            {@link Subscription} that allows requesting data via {@link Subscription#request(long)}
+     */
+    public void onSubscribe(Subscription s);
+
+    /**
+     * Data notification sent by the {@link Publisher} in response to requests to {@link Subscription#request(long)}.
+     * 
+     * @param t the element signaled
+     */
+    public void onNext(T t);
+
+    /**
+     * Failed terminal state.
+     * <p>
+     * No further events will be sent even if {@link Subscription#request(long)} is invoked again.
+     *
+     * @param t the throwable signaled
+     */
+    public void onError(Throwable t);
+
+    /**
+     * Successful terminal state.
+     * <p>
+     * No further events will be sent even if {@link Subscription#request(long)} is invoked again.
+     */
+    public void onComplete();
+ }
+
+ ```
+ -> onSubscribe()는 구독을 시작하면 처리되고, onNext()는 데이터가 통지되면 처리되고, onError()는 에러가 통지되면 처리되고, 마지막으로 onComplete()는 
+    완료가 통지되면 처리된다.
