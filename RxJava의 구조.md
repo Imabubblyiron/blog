@@ -1,26 +1,22 @@
 # RxJava 기본 구조
 
 
+
 1. 구조 
 
 
- RxJava에서 데이터를 만들고 통지하는 생산좌와 통지된 데이터를 받아 처리하는 소비자로 구성된다. 또한 이 Publisher와 Subscriber 관계는 Reactive Streams 
- 지원 유무에 따라 나뉘게 된다. 그 중에서 Reactive Streams를 지원하는 Flowable과 Subscriber는 배압기능을 가지고 있고, onSubscribe(), onNext(), 
- onError(), onComplete를 하고 소비자가 통지를 받으면 처리하게 됩니다. 
- 하지만 Reactive Streams를 지원하지 않는 Observable과 Observer는 Flowable, Subscriber와 거의 비슷한 기능을 가직 있지마 앞서 말했다시피 배압기능은 
- 가지고 있지 않아서 데이터 개수를 따로 요청하지 않습니다.
+RxJava에서 데이터를 만들고 통지하는 생산좌와 통지된 데이터를 받아 처리하는 소비자로 구성된다. 또한 이 Publisher와 Subscriber 관계는 Reactive Streams 
+지원 유무에 따라 나뉘게 된다. 그 중에서 Reactive Streams를 지원하는 Flowable과 Subscriber는 배압기능을 가지고 있고, onSubscribe(), onNext(), 
+onError(), onComplete를 하고 소비자가 통지를 받으면 처리하게 됩니다. 하지만 Reactive Streams를 지원하지 않는 Observable과 Observer는 Flowable, Subscriber와 거의 비슷한 기능을 가직 있지마 앞서 말했다시피 배압기능은 가지고 있지 않아서 데이터 개수를 따로 요청하지 않습니다.
  
  
 2. 연산자
 
 
- 연산자는 쉽게 말해서 생산자로부터 통지된 데이터가 소비자에게 도착하기 전에 데이터를 변환, 삭제, 변경 해야할 때 필요한 것입니다. 예를들면 Flowable, 
- Observable 들이 가지고 있는 메소드 중에서 새로운 Flowable, Observable을 반환하고 최종 데이터를 통지할때까지 만들 수 있다. 이와 같이 연산자르 순차적으로 
- 연결해 나가면서 최종 통지 데이터를 직관적으로 확인할 수 있게 된다. 아래의 예제는 1부터 5까지 데이터를 순차적으로 통지해 Flowable의 메소드인 filter 메소드를 
- 이용하여 원하느 데이터르 골라내 후 다시 Flowable의 메소드인 map 메소드를 이용하여 데이터르 변환해 다시 통지합니다.
+연산자는 쉽게 말해서 생산자로부터 통지된 데이터가 소비자에게 도착하기 전에 데이터를 변환, 삭제, 변경 해야할 때 필요한 것입니다. 예를들면 Flowable, Observable 들이 가지고 있는 메소드 중에서 새로운 Flowable, Observable을 반환하고 최종 데이터를 통지할때까지 만들 수 있다. 이와 같이 연산자르 순차적으로 연결해 나가면서 최종 통지 데이터를 직관적으로 확인할 수 있게 된다. 아래의 예제는 1부터 5까지 데이터를 순차적으로 통지해 Flowable의 메소드인 filter 메소드를 이용하여 원하느 데이터르 골라내 후 다시 Flowable의 메소드인 map 메소드를 이용하여 데이터르 변환해 다시 통지합니다.
  
  
- ```kotlin
+```kotlin
  
   Flowable<Integer> flowable =
                 Flowable.just(1,2,3,4,5)
@@ -44,8 +40,7 @@
 3. 비동기처리 
 
  
- RxJava에선 사용자가 직접 스레드를 관리할 필요 없이 사용할 수 있게 Scheduler를 제공합니. 데이터를 통지할때 소비할때에 모두 지정할 수 있다. 그리고 데이터를 주
- 고 받을때에 이루어지는 처리를 외부 변수를 참조하여 바꾸지않게 주의해야한다. 아래 예제를 확인해보자.
+RxJava에선 사용자가 직접 스레드를 관리할 필요 없이 사용할 수 있게 Scheduler를 제공합니. 데이터를 통지할때 소비할때에 모두 지정할 수 있다. 그리고 데이터를 주고 받을때에 이루어지는 처리를 외부 변수를 참조하여 바꾸지않게 주의해야한다. 아래 예제를 확인해보자.
  
  ```kotlin
  
