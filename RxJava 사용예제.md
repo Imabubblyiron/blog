@@ -79,7 +79,7 @@
       }
   }
   
-  결과 -> 
+  결과 : 
   
   2019-11-28 01:06:12.622 30389-30426/com.example.rxjavapractice E/Flowable예제 ->: RxComputationThreadPool-1 : Kim
   2019-11-28 01:06:12.622 30389-30426/com.example.rxjavapractice E/Flowable예제 ->: RxComputationThreadPool-1 : Choi
@@ -149,6 +149,14 @@
      }
  }
  
+ 결과 : 
+ 
+ 2019-11-28 09:30:22.939 30990-31024/com.example.rxjavapractice E/Observable예제 ->: RxComputationThreadPool-1 : Kim
+ 2019-11-28 09:30:22.939 30990-31024/com.example.rxjavapractice E/Observable예제 ->: RxComputationThreadPool-1 : Choi
+ 2019-11-28 09:30:22.939 30990-31024/com.example.rxjavapractice E/Observable예제 ->: RxComputationThreadPool-1 : Moon
+ 2019-11-28 09:30:22.939 30990-31024/com.example.rxjavapractice E/Observable예제 ->: RxComputationThreadPool-1 : 완료
+
+
 ```
 
 Flowable과 Observable 만들고 실행하는 과정을 비교해본다면 그렇게 많은 차이는 없다. 비교해보자면 데이터 버퍼링을 할수있는지 없는지로 배압 기능의 유무의 차이가 있고, Observable에서 onNext() 메소드를 보면 통지하는 데이터 개수를 따로 요청하지 않고 있다. 즉 배압 기능이 없어서 데이터를 받을 때만 처리하게 된다. 
