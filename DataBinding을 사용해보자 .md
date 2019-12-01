@@ -1,4 +1,4 @@
-# DataBinding 사용
+# DataBinding을 사용해보자
 
 
 우선 안드로이드 스튜디오 안에서 DataBinding 라이브러리를 사용하도록 준비하는 방법을 알아보자.
@@ -30,7 +30,7 @@ android {
 
 위의 코드와 같이 앱 모듈의 build.gradle에 DataBinding을 위한 셋팅을 진행한다.
  
- 2) 적용하기
+ 2) 적용하기    
  
  아래 xml 코드는 DataBinding 라이브러리를 사용하지 않았을때와 사용했을때의 차이를 보여준다.
  
