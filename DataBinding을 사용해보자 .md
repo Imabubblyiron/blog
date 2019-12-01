@@ -13,7 +13,7 @@ android {
     compileSdkVersion 29
     buildToolsVersion "29.0.0"
     defaultConfig {
-        applicationId "com.dfang.playfang"
+        applicationId "com.example.sample"
         minSdkVersion 23
         targetSdkVersion 29
         versionCode 10
