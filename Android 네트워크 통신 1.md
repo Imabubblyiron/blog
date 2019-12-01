@@ -43,7 +43,7 @@ public class MyHttpURLConnection {
             
         // 보낼 데이터가 있을때
         else {
-            // 파라미터가 2개 이상이면 파라미터 연결에 &가 필요하므로 스위칭할 변수 생성.
+            
             boolean isAnd = false;
             String key;
             String value;
@@ -58,7 +58,6 @@ public class MyHttpURLConnection {
 
                 params.append(key).append("=").append(value);
 
-                // 파라미터가 2개 이상이면 isAnd를 true로 바꾸고 다음 루프부터 &를 붙인다.
                 if (!isAnd)
                     if (_params.size() >= 2)
                         isAnd = true;
