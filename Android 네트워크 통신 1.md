@@ -5,6 +5,8 @@
 안드로이드에서는 네트워크 통신은 반드시 작업 스레드에서 실행시켜야하는 제약이 있다. 우리가 가장 일반적으로 알고 있는 것은 비동기 처리 클래스는 AsyncTask이다 아래 예시에 간단한 설명이 있으니 이것들을 통해 이해해 보도록 하자.
 
 
+
+
 1) 먼저, 인터넷 환경 설정이 필요하다.
 
 ```kotlin
@@ -24,6 +26,7 @@
 ```
     
 우선 인터넷사용을 위해서는 AndroidManifest.xml파일에 INTERNET 권한을 추가하도록 한다.
+
 
 
 2) MyHttpURLConnection를 만들어 HttpURLConnection을 수행하는 기능을 구현한다.
@@ -112,6 +115,8 @@ public class MyHttpURLConnection {
 }
 
 ```
+
+
 
 3)  MainActivity에서 네트워크 처리를 위해 비동기로 처리한다.
 
